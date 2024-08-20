@@ -4,26 +4,31 @@ import cors from 'cors'
 
 import express from 'express'
 import morgan from 'morgan'
-import { authRouter } from './routes'
+import { sessionMiddleware } from './middlewares'
+import { authRoutes } from './routes'
+import { passport } from './utils'
 
 const PORT = process.env.PORT || 3000
 
 export const app = express()
 
-// CORS
 app.use(cors())
 
-// body parser
 app.use(express.json())
 
-// log requests
+app.use(sessionMiddleware)
+
 app.use(morgan('dev'))
+
+app.use(passport.initialize())
+
+app.use(passport.session())
 
 app.get('/', (_req, res) => {
   res.send('Hello World!')
 })
 
-app.use('/auth', authRouter)
+app.use('/auth', authRoutes)
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
