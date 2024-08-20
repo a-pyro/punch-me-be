@@ -8,7 +8,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf dist && tsc",
+    "build": "rimraf build && tsc",
     "start": "npx tsx watch app/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
