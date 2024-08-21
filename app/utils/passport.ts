@@ -1,7 +1,10 @@
+import jwt from 'jsonwebtoken'
 import passport from 'passport'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
+import { supabase, TablesInsert } from '../database'
 import { env } from './env'
 
+//https:dev.to/chryzcode/google-authentication-in-nodejs-using-passport-and-google-oauth-f51
 //initialize
 passport.use(
   new GoogleStrategy(
@@ -14,27 +17,61 @@ passport.use(
     },
 
     // returns the authenticated email profile
-    async function (request, accessToken, refreshToken, profile, done) {
-      console.log('🚀 ~ refreshToken:', refreshToken)
-      console.log('🚀 ~ accessToken:', accessToken)
-      // you can write some algorithms here based on your application models and all
-      // an example - not related to this application
+    async function (_request, _accessToken, _refreshToken, profile, done) {
+      const {
+        id: googleProfileId,
+        displayName,
+        emails,
+        photos,
+        _json: { email: googleEmail },
+      } = profile
 
-      /*
-   const exist = await User.findOne({ email: profile["emails"][0].value });
-   if (!exist) {
-        await User.create({
-        email: profile["emails"][0].value,
-          fullName: profile["displayName"],
-          avatar: profile["photos"][0].value,
-          username: profile["name"]["givenName"],
-          verified: true,
-        });
+      let { data: userData } = await supabase
+        .from('users')
+        .select('*')
+        .eq('googleId', googleProfileId)
+        .single()
+      if (!userData) {
+        // user = await User.create({
+        //   email: emails?.[0].value,
+        //   displayName,
+        //   avatar: photos?.[0].value,
+        //   id: googleProfileId,
+        //   // username: profile['name']['givenName'],
+        //   // verified: true,
+        // })
+        const email = emails?.[0].value ?? googleEmail
+        if (!email) return done(new Error('No email found in Google profile'))
+
+        const newUser: TablesInsert<'users'> = {
+          created_at: new Date().toISOString(),
+          display_name: displayName,
+          email,
+          google_id: googleProfileId,
+          avatar_url: photos?.[0].value,
+        }
+
+        const { data, error } = await supabase
+          .from('users')
+          .insert(newUser)
+          .select()
+
+        console.log('🚀 ~ error:', error)
+        userData = data?.[0]!
       }
-    const user = await User.findOne({ email: profile["emails"][0].value });
- return done(null, user);
-*/
-      return done(null, profile)
+
+      // Create your own JWT
+      const token = jwt.sign(
+        {
+          userId: userData.id,
+          email: userData.email,
+          name: userData.display_name,
+        },
+        env.JWT_SECRET,
+        { expiresIn: '1h' },
+      )
+
+      return done(null, { userData, token })
     },
   ),
 )

@@ -1,7 +1,8 @@
 import session from 'express-session'
+import { env } from '../utils'
 
 export const sessionMiddleware = session({
-  secret: process.env.SESSION_SECRET!,
+  secret: env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
 })

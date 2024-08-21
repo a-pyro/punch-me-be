@@ -20,7 +20,9 @@ authRoutes.get(
     if (!req.user) {
       res.status(400).json({ error: 'Authentication failed' })
     }
-    // return user details
+
+    console.log('🚀 ~ req.user:', req.user)
+
     res.status(200).json(req.user)
   },
 )

@@ -24,12 +24,16 @@ app.use(passport.initialize())
 
 app.use(passport.session())
 
-app.get('/', (_req, res) => {
-  res.send('Hello World!')
+app.get('/api', ({ isAuthenticated }, res) => {
+  if (isAuthenticated()) {
+    return res.send('Hello World! You are authenticated')
+  }
+  res.status(401).send('Hello World! You are not authenticated')
 })
 
-app.use('/auth', authRoutes)
+app.use('/api/auth', authRoutes)
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
+  console.log(`Server is running on port http://localhost:${PORT}/api`)
 })
