@@ -32,14 +32,6 @@ passport.use(
         .eq('googleId', googleProfileId)
         .single()
       if (!userData) {
-        // user = await User.create({
-        //   email: emails?.[0].value,
-        //   displayName,
-        //   avatar: photos?.[0].value,
-        //   id: googleProfileId,
-        //   // username: profile['name']['givenName'],
-        //   // verified: true,
-        // })
         const email = emails?.[0].value ?? googleEmail
         if (!email) return done(new Error('No email found in Google profile'))
 
