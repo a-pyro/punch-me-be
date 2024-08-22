@@ -67,6 +67,7 @@ authRoutes.post(
       created_at: new Date().toISOString(),
       email,
       password: hashedPassword,
+      role: 'draft',
       ...rest,
     }
 

@@ -14,7 +14,7 @@ CREATE TABLE users (
     email VARCHAR(255) UNIQUE NOT NULL,
     display_name VARCHAR(255),
     password TEXT NOT NULL,
-    role VARCHAR(50) CHECK (role IN ('customer', 'business_owner')),
+    role VARCHAR(50) CHECK (role IN ('customer', 'business_owner', 'draft')),
     avatar_url TEXT, -- URL for the user's avatar image
     phone_number VARCHAR(20), -- User's phone number
     address TEXT, -- User's address
