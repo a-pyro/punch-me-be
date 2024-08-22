@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 import { supabase, TablesInsert } from '../database'
 import { env } from '../utils'
 
-const authRoutes = Router()
+const users = Router()
 
 // authRoutes.get(
 //   '/google',
@@ -44,8 +44,8 @@ const authRoutes = Router()
 // export { authRoutes }
 
 // User Registration
-authRoutes.post(
-  '/register',
+users.post(
+  '/create',
   async (req: Request<any, any, TablesInsert<'users'>>, res) => {
     const { email, password, ...rest } = req.body
 
@@ -93,7 +93,7 @@ authRoutes.post(
 )
 
 // User Login
-authRoutes.post('/login', async (req, res) => {
+users.post('/login', async (req, res) => {
   const { email, password } = req.body
 
   // Find the user by email
@@ -128,4 +128,4 @@ authRoutes.post('/login', async (req, res) => {
   res.status(200).json({ token, user })
 })
 
-export { authRoutes }
+export { users }
