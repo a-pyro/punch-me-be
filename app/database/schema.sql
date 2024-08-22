@@ -13,7 +13,7 @@ CREATE TABLE users (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     email VARCHAR(255) UNIQUE NOT NULL,
     display_name VARCHAR(255),
-    google_id VARCHAR(255) UNIQUE NOT NULL,
+    password TEXT NOT NULL,
     role VARCHAR(50) CHECK (role IN ('customer', 'business_owner')),
     avatar_url TEXT, -- URL for the user's avatar image
     phone_number VARCHAR(20), -- User's phone number
