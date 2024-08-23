@@ -4,7 +4,8 @@ import cors from 'cors'
 
 import express from 'express'
 import morgan from 'morgan'
-import { users } from './routes'
+import { authenticateJWT } from './middlewares'
+import { storesRoutes, userRoutes } from './routes'
 
 const PORT = process.env.PORT || 3000
 
@@ -16,7 +17,11 @@ app.use(express.json())
 
 app.use(morgan('dev'))
 
-app.use('/api/users', users)
+app.use('/api/users', userRoutes)
+
+app.use(authenticateJWT)
+
+app.use('/api/stores', storesRoutes)
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)

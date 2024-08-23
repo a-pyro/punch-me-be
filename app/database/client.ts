@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
-import { Database } from '.'
 import { env } from '../utils'
+import { Database } from './generated-types'
 
 //https:supabase.com/docs/reference/javascript/typescript-support
 

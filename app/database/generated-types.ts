@@ -9,74 +9,27 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      businesses: {
-        Row: {
-          address: string | null
-          business_hours: Json | null
-          contact_email: string | null
-          contact_phone: string | null
-          created_at: string | null
-          id: string
-          logo_url: string | null
-          name: string
-          user_id: string | null
-          website_url: string | null
-        }
-        Insert: {
-          address?: string | null
-          business_hours?: Json | null
-          contact_email?: string | null
-          contact_phone?: string | null
-          created_at?: string | null
-          id?: string
-          logo_url?: string | null
-          name: string
-          user_id?: string | null
-          website_url?: string | null
-        }
-        Update: {
-          address?: string | null
-          business_hours?: Json | null
-          contact_email?: string | null
-          contact_phone?: string | null
-          created_at?: string | null
-          id?: string
-          logo_url?: string | null
-          name?: string
-          user_id?: string | null
-          website_url?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "businesses_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       notifications: {
         Row: {
           created_at: string | null
           id: string
           message: string
           read: boolean | null
-          user_id: string | null
+          user_id: string
         }
         Insert: {
           created_at?: string | null
           id?: string
           message: string
           read?: boolean | null
-          user_id?: string | null
+          user_id: string
         }
         Update: {
           created_at?: string | null
           id?: string
           message?: string
           read?: boolean | null
-          user_id?: string | null
+          user_id?: string
         }
         Relationships: [
           {
@@ -90,7 +43,6 @@ export type Database = {
       }
       punchcards: {
         Row: {
-          business_id: string | null
           created_at: string | null
           description: string | null
           expiration_date: string | null
@@ -98,11 +50,11 @@ export type Database = {
           image_url: string | null
           name: string
           punches_needed: number
+          store_id: string
           terms_conditions: string | null
           total_punches: number
         }
         Insert: {
-          business_id?: string | null
           created_at?: string | null
           description?: string | null
           expiration_date?: string | null
@@ -110,11 +62,11 @@ export type Database = {
           image_url?: string | null
           name: string
           punches_needed?: number
+          store_id: string
           terms_conditions?: string | null
           total_punches?: number
         }
         Update: {
-          business_id?: string | null
           created_at?: string | null
           description?: string | null
           expiration_date?: string | null
@@ -122,15 +74,16 @@ export type Database = {
           image_url?: string | null
           name?: string
           punches_needed?: number
+          store_id?: string
           terms_conditions?: string | null
           total_punches?: number
         }
         Relationships: [
           {
-            foreignKeyName: "punchcards_business_id_fkey"
-            columns: ["business_id"]
+            foreignKeyName: "punchcards_store_id_fkey"
+            columns: ["store_id"]
             isOneToOne: false
-            referencedRelation: "businesses"
+            referencedRelation: "stores"
             referencedColumns: ["id"]
           },
         ]
@@ -139,19 +92,19 @@ export type Database = {
         Row: {
           created_at: string | null
           id: string
-          punchcard_id: string | null
+          punchcard_id: string
           qr_code_data: string
         }
         Insert: {
           created_at?: string | null
           id?: string
-          punchcard_id?: string | null
+          punchcard_id: string
           qr_code_data: string
         }
         Update: {
           created_at?: string | null
           id?: string
-          punchcard_id?: string | null
+          punchcard_id?: string
           qr_code_data?: string
         }
         Relationships: [
@@ -166,40 +119,33 @@ export type Database = {
       }
       reviews: {
         Row: {
-          business_id: string | null
           comment: string | null
           created_at: string | null
           id: string
           punchcard_id: string | null
           rating: number | null
-          user_id: string | null
+          store_id: string
+          user_id: string
         }
         Insert: {
-          business_id?: string | null
           comment?: string | null
           created_at?: string | null
           id?: string
           punchcard_id?: string | null
           rating?: number | null
-          user_id?: string | null
+          store_id: string
+          user_id: string
         }
         Update: {
-          business_id?: string | null
           comment?: string | null
           created_at?: string | null
           id?: string
           punchcard_id?: string | null
           rating?: number | null
-          user_id?: string | null
+          store_id?: string
+          user_id?: string
         }
         Relationships: [
-          {
-            foreignKeyName: "reviews_business_id_fkey"
-            columns: ["business_id"]
-            isOneToOne: false
-            referencedRelation: "businesses"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "reviews_punchcard_id_fkey"
             columns: ["punchcard_id"]
@@ -208,7 +154,61 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "reviews_store_id_fkey"
+            columns: ["store_id"]
+            isOneToOne: false
+            referencedRelation: "stores"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "reviews_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      stores: {
+        Row: {
+          address: string | null
+          contact_email: string | null
+          contact_phone: string | null
+          created_at: string | null
+          id: string
+          logo_url: string | null
+          name: string
+          store_hours: Json | null
+          user_id: string
+          website_url: string | null
+        }
+        Insert: {
+          address?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          created_at?: string | null
+          id?: string
+          logo_url?: string | null
+          name: string
+          store_hours?: Json | null
+          user_id: string
+          website_url?: string | null
+        }
+        Update: {
+          address?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          created_at?: string | null
+          id?: string
+          logo_url?: string | null
+          name?: string
+          store_hours?: Json | null
+          user_id?: string
+          website_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stores_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
@@ -221,25 +221,25 @@ export type Database = {
           amount: number
           description: string | null
           id: string
-          punchcard_id: string | null
+          punchcard_id: string
           transaction_date: string | null
-          user_id: string | null
+          user_id: string
         }
         Insert: {
           amount: number
           description?: string | null
           id?: string
-          punchcard_id?: string | null
+          punchcard_id: string
           transaction_date?: string | null
-          user_id?: string | null
+          user_id: string
         }
         Update: {
           amount?: number
           description?: string | null
           id?: string
-          punchcard_id?: string | null
+          punchcard_id?: string
           transaction_date?: string | null
-          user_id?: string | null
+          user_id?: string
         }
         Relationships: [
           {
@@ -262,23 +262,23 @@ export type Database = {
         Row: {
           created_at: string | null
           id: string
-          punchcard_id: string | null
+          punchcard_id: string
           punches: number
-          user_id: string | null
+          user_id: string
         }
         Insert: {
           created_at?: string | null
           id?: string
-          punchcard_id?: string | null
+          punchcard_id: string
           punches?: number
-          user_id?: string | null
+          user_id: string
         }
         Update: {
           created_at?: string | null
           id?: string
-          punchcard_id?: string | null
+          punchcard_id?: string
           punches?: number
-          user_id?: string | null
+          user_id?: string
         }
         Relationships: [
           {
@@ -309,7 +309,7 @@ export type Database = {
           is_verified: boolean | null
           password: string
           phone_number: string | null
-          role: string | null
+          role: Database["public"]["Enums"]["user_role"]
         }
         Insert: {
           address?: string | null
@@ -322,7 +322,7 @@ export type Database = {
           is_verified?: boolean | null
           password: string
           phone_number?: string | null
-          role?: string | null
+          role?: Database["public"]["Enums"]["user_role"]
         }
         Update: {
           address?: string | null
@@ -335,7 +335,7 @@ export type Database = {
           is_verified?: boolean | null
           password?: string
           phone_number?: string | null
-          role?: string | null
+          role?: Database["public"]["Enums"]["user_role"]
         }
         Relationships: []
       }
@@ -347,7 +347,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      user_role: "customer" | "store_owner" | "draft"
     }
     CompositeTypes: {
       [_ in never]: never

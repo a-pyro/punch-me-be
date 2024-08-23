@@ -1,0 +1,1 @@
+- [ ] - error handling middleware and typing syhnched with FE
