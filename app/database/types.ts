@@ -9,6 +9,8 @@ export type ExpressRequest<TReqBody, TParams = any, TQuery = any> = Request<
   TQuery
 >
 
+export type WithId = { id: string }
+
 export const COLLECTIONS = {
   users: 'users',
   stores: 'stores',

@@ -20,16 +20,11 @@ userRoutes.post('/', async (req: ExpressRequest<UserInsert>, res) => {
   const { email, password, ...rest } = req.body
 
   // Check if the user already exists
-  const { data: existingUser, error: existingUserError } = await supabase
+  const { data: existingUser } = await supabase
     .from(COLLECTIONS.users)
     .select('*')
     .eq('email', email)
     .single()
-
-  if (existingUserError) {
-    logger.error(`Error checking existing user: ${existingUserError.message}`)
-    return res.status(500).json({ error: 'Error checking existing user' })
-  }
 
   if (existingUser) {
     logger.warn(`User already exists: ${email}`)

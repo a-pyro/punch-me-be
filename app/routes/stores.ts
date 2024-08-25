@@ -10,6 +10,8 @@ import { logger } from '../utils'
 
 const storesRoutes = Router()
 
+//  TODO CHECK USER PERMISSIONS
+
 storesRoutes.post('/', async (req: ExpressRequest<StoreInsert>, res) => {
   const { user_id, ...rest } = req.body
   // Check if the user exists
