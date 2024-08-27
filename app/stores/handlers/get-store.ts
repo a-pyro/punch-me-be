@@ -1,10 +1,16 @@
-import { ApiResquest, COLLECTIONS, WithId, supabase } from '@/app/database'
+import {
+  ApiResponse,
+  ApiResquest,
+  COLLECTIONS,
+  Store,
+  WithId,
+  supabase,
+} from '@/app/database'
 import { logger } from '@/utils'
-import { Response } from 'express'
 
 export const getStore = async (
   req: ApiResquest<any, WithId>,
-  res: Response,
+  res: ApiResponse<Store>,
 ) => {
   const { id } = req.params
 
