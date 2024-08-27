@@ -5,7 +5,8 @@ import cors from 'cors'
 import express from 'express'
 import morgan from 'morgan'
 import { authenticateJWT } from './middlewares'
-import { storesRoutes, userRoutes } from './routes'
+import { storesRoutes } from './stores/routes'
+import { userRoutes } from './users/routes'
 
 const PORT = process.env.PORT || 3000
 
