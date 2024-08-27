@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt'
 import { Response } from 'express'
-import { COLLECTIONS, ExpressRequest, supabase } from '../../database'
 import { logger, signToken } from '../../../utils'
+import { ApiResquest, COLLECTIONS, supabase } from '../../database'
 
 export const loginUser = async (
-  req: ExpressRequest<{ email: string; password: string }>,
+  req: ApiResquest<{ email: string; password: string }>,
   res: Response,
 ) => {
   logger.info(`Received login request: ${JSON.stringify(req.body)}`)

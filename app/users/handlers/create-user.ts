@@ -1,15 +1,10 @@
-import {
-  COLLECTIONS,
-  ExpressRequest,
-  UserInsert,
-  supabase,
-} from '@/app/database'
+import { ApiResquest, COLLECTIONS, UserInsert, supabase } from '@/app/database'
 import { logger, signToken } from '@/utils'
 import bcrypt from 'bcrypt'
 import { Response } from 'express'
 
 export const createUser = async (
-  req: ExpressRequest<UserInsert>,
+  req: ApiResquest<UserInsert>,
   res: Response,
 ) => {
   logger.info(`Received request to create user: ${JSON.stringify(req.body)}`)

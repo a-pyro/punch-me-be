@@ -1,6 +1,6 @@
 import {
+  ApiResquest,
   COLLECTIONS,
-  ExpressRequest,
   UserInsert,
   UserUpdate,
   supabase,
@@ -9,7 +9,7 @@ import { logger } from '@/utils'
 import { Response } from 'express'
 
 export const updateUser = async (
-  req: ExpressRequest<UserUpdate>,
+  req: ApiResquest<UserUpdate>,
   res: Response,
 ) => {
   logger.info(`Received request to update user: ${JSON.stringify(req.body)}`)

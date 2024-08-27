@@ -1,13 +1,18 @@
-import { Request } from 'express'
+import { Request, Response } from 'express'
 import { Tables, TablesInsert, TablesUpdate } from './generated-types'
 
 //  todo fix this any
-export type ExpressRequest<TReqBody, TParams = any, TQuery = any> = Request<
+export type ApiResquest<TReqBody, TParams = any, TQuery = any> = Request<
   TParams,
   any,
   TReqBody,
   TQuery
 >
+
+export type ApiResponse<TResBody> = Response<{
+  data?: TResBody
+  message?: string
+}>
 
 export type WithId = { id: string }
 

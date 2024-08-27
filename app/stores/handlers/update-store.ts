@@ -1,6 +1,6 @@
 import {
+  ApiResquest,
   COLLECTIONS,
-  ExpressRequest,
   StoreUpdate,
   WithId,
   supabase,
@@ -9,7 +9,7 @@ import { logger } from '@/utils'
 import { Response } from 'express'
 
 export const updateStore = async (
-  req: ExpressRequest<StoreUpdate, WithId>,
+  req: ApiResquest<StoreUpdate, WithId>,
   res: Response,
 ) => {
   const { id } = req.params

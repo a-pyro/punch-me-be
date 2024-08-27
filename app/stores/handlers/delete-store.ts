@@ -1,9 +1,9 @@
-import { COLLECTIONS, ExpressRequest, WithId, supabase } from '@/app/database'
+import { ApiResquest, COLLECTIONS, WithId, supabase } from '@/app/database'
 import { logger } from '@/utils'
 import { Response } from 'express'
 
 export const deleteStore = async (
-  req: ExpressRequest<any, WithId>,
+  req: ApiResquest<any, WithId>,
   res: Response,
 ) => {
   const { id } = req.params

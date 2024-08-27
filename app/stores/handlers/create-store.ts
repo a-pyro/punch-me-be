@@ -1,11 +1,16 @@
 import { supabase } from '@/app/database'
-import { COLLECTIONS, ExpressRequest, StoreInsert } from '@/app/database/types'
+import {
+  ApiResponse,
+  ApiResquest,
+  COLLECTIONS,
+  Store,
+  StoreInsert,
+} from '@/app/database/types'
 import { logger } from '@/utils'
-import { Response } from 'express'
 
 export const createStore = async (
-  req: ExpressRequest<StoreInsert>,
-  res: Response,
+  req: ApiResquest<StoreInsert>,
+  res: ApiResponse<Store>,
 ) => {
   const { user_id, ...rest } = req.body
   // Check if the user exists
@@ -21,15 +26,18 @@ export const createStore = async (
   }
 
   // Create the stores
-  const { data, error } = await supabase.from(COLLECTIONS.stores).insert({
-    ...rest,
-    user_id,
-  })
+  const { data, error } = await supabase
+    .from(COLLECTIONS.stores)
+    .insert({
+      ...rest,
+      user_id,
+    })
+    .select()
 
   if (error) {
     logger.error(`Error creating stores: ${JSON.stringify(error)}`)
     return res.status(500).json({ message: 'Error creating stores' })
   }
 
-  return res.status(201).json({ data })
+  return res.status(201).json({ data: data?.[0] })
 }
