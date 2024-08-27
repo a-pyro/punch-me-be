@@ -17,7 +17,7 @@ export const COLLECTIONS = {
 } as const
 
 export type UserInsert = TablesInsert<'users'>
-export type UserUpdate = TablesUpdate<'users'>
+export type UserUpdate = Omit<TablesUpdate<'users'>, 'password'>
 export type User = Tables<'users'>
 
 export type StoreInsert = TablesInsert<'stores'>

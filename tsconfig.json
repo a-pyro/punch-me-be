@@ -20,5 +20,5 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["app/**/*", "env.mjs"]
+  "include": ["app/**/*", "env.mjs", "app/database", "utils"]
 }

@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { logger } from '../../utils'
 import {
   COLLECTIONS,
   ExpressRequest,
@@ -6,7 +7,6 @@ import {
   StoreUpdate,
   supabase,
 } from '../database'
-import { logger } from '../utils'
 
 const storesRoutes = Router()
 
