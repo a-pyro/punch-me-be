@@ -38,6 +38,7 @@ export const createStore = async (
     logger.error(`Error creating stores: ${JSON.stringify(error)}`)
     return res.status(500).json({ message: 'Error creating stores' })
   }
+  const store = data?.[0]
 
-  return res.status(201).json({ data: data?.[0] })
+  return res.status(201).json({ data: store })
 }

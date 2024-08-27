@@ -1,11 +1,18 @@
-import { ApiResquest, COLLECTIONS, UserInsert, supabase } from '@/app/database'
+import {
+  ApiResponse,
+  ApiResquest,
+  COLLECTIONS,
+  User,
+  UserInsert,
+  supabase,
+} from '@/app/database'
 import { logger, signToken } from '@/utils'
 import bcrypt from 'bcrypt'
-import { Response } from 'express'
 
+export type UserLoginResponse = ApiResponse<User & { token: string }>
 export const createUser = async (
   req: ApiResquest<UserInsert>,
-  res: Response,
+  res: UserLoginResponse,
 ) => {
   logger.info(`Received request to create user: ${JSON.stringify(req.body)}`)
 
@@ -20,7 +27,7 @@ export const createUser = async (
 
   if (existingUser) {
     logger.warn(`User already exists: ${email}`)
-    return res.status(400).json({ error: 'User already exists' })
+    return res.status(400).json({ message: 'User already exists' })
   }
 
   // Hash the password
@@ -42,7 +49,7 @@ export const createUser = async (
 
   if (error) {
     logger.error(`Error creating user: ${error.message}`)
-    return res.status(500).json({ error: 'Error creating user' })
+    return res.status(500).json({ message: 'Error creating user' })
   }
 
   logger.info(`User created successfully: ${JSON.stringify(data?.[0])}`)
@@ -51,5 +58,5 @@ export const createUser = async (
 
   logger.info(`JWT token generated for user: ${data?.[0].email}`)
 
-  res.status(201).json({ data: data?.[0], token })
+  res.status(201).json({ data: { ...data?.[0], token } })
 }
