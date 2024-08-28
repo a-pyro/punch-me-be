@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
+import { STATUS_CODES } from '../utils'
 import { env } from '../utils/env'
 
 export const authenticateJWT = (
@@ -14,12 +15,12 @@ export const authenticateJWT = (
 
     jwt.verify(token, env.JWT_SECRET, (err, user) => {
       if (err) {
-        return res.status(403).json({ message: 'Forbidden' })
+        return res.status(STATUS_CODES.FORBIDDEN).json({ message: 'Forbidden' })
       }
       req.user = user
       next()
     })
   } else {
-    res.status(401).json({ message: 'Unauthorized' })
+    res.status(STATUS_CODES.UNAUTHORIZED).json({ message: 'Unauthorized' })
   }
 }

@@ -6,7 +6,7 @@ import {
   WithId,
   supabase,
 } from '@/app/database'
-import { logger } from '@/app/utils'
+import { STATUS_CODES, logger } from '@/app/utils'
 
 export const getStore = async (
   req: ApiResquest<any, WithId>,
@@ -22,8 +22,10 @@ export const getStore = async (
 
   if (!stores || error) {
     logger.warn(`Error searching store: ${JSON.stringify(error)}`)
-    return res.status(404).json({ message: 'Stores not found' })
+    return res
+      .status(STATUS_CODES.NOT_FOUND)
+      .json({ message: 'Stores not found' })
   }
 
-  return res.status(200).json({ data: stores })
+  return res.status(STATUS_CODES.OK).json({ data: stores })
 }
