@@ -19,6 +19,7 @@ export type WithId = { id: string }
 export const COLLECTIONS = {
   users: 'users',
   stores: 'stores',
+  punchcards: 'punchcards',
 } as const
 
 export type UserInsert = TablesInsert<'users'>
@@ -28,3 +29,7 @@ export type User = Tables<'users'>
 export type StoreInsert = TablesInsert<'stores'>
 export type StoreUpdate = TablesUpdate<'stores'>
 export type Store = Tables<'stores'>
+
+export type Punchcard = Tables<'punchcards'>
+export type PunchcardInsert = TablesInsert<'punchcards'>
+export type PunchcardUpdate = TablesUpdate<'punchcards'>

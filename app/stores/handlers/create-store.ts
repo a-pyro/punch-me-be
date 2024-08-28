@@ -12,26 +12,9 @@ export const createStore = async (
   req: ApiResquest<StoreInsert>,
   res: ApiResponse<Store>,
 ) => {
-  const { user_id, ...rest } = req.body
-  // Check if the user exists
-  const { data: user, error: userError } = await supabase
-    .from(COLLECTIONS.users)
-    .select('*')
-    .eq('id', user_id)
-    .single()
-
-  if (userError || !user) {
-    logger.error(`Error checking existing user: ${JSON.stringify(userError)}`)
-    return res.status(400).json({ message: 'User not found' })
-  }
-
-  // Create the stores
   const { data, error } = await supabase
     .from(COLLECTIONS.stores)
-    .insert({
-      ...rest,
-      user_id,
-    })
+    .insert(req.body)
     .select()
 
   if (error) {
