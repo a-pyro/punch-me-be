@@ -5,7 +5,7 @@ import {
   UserUpdate,
   supabase,
 } from '@/app/database'
-import { logger } from '@/utils'
+import { logger } from '@/app/utils/logger'
 import { Response } from 'express'
 
 export const updateUser = async (

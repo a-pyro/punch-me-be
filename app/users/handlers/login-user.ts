@@ -1,5 +1,5 @@
+import { logger, signToken } from '@/app/utils'
 import bcrypt from 'bcrypt'
-import { logger, signToken } from '../../../utils'
 import { ApiResquest, COLLECTIONS, supabase } from '../../database'
 import { UserLoginResponse } from './create-user'
 

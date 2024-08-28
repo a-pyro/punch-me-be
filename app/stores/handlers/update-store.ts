@@ -5,7 +5,7 @@ import {
   WithId,
   supabase,
 } from '@/app/database'
-import { logger } from '@/utils'
+import { logger } from '@/app/utils'
 import { Response } from 'express'
 
 export const updateStore = async (

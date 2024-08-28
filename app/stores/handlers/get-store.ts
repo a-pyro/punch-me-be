@@ -6,7 +6,7 @@ import {
   WithId,
   supabase,
 } from '@/app/database'
-import { logger } from '@/utils'
+import { logger } from '@/app/utils'
 
 export const getStore = async (
   req: ApiResquest<any, WithId>,

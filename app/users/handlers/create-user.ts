@@ -6,7 +6,7 @@ import {
   UserInsert,
   supabase,
 } from '@/app/database'
-import { logger, signToken } from '@/utils'
+import { logger, signToken } from '@/app/utils'
 import bcrypt from 'bcrypt'
 
 export type UserLoginResponse = ApiResponse<User & { token: string }>

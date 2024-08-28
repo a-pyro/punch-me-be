@@ -4,7 +4,7 @@ import cors from 'cors'
 
 import express from 'express'
 import morgan from 'morgan'
-import { authenticateJWT } from './middlewares'
+import { authenticateJWT } from './middlewares/authenticate-jwt'
 import { storesRoutes } from './stores/routes'
 import { userRoutes } from './users/routes'
 

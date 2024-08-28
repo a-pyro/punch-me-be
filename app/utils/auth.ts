@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import { User } from '../app/database/types'
+import { User } from '../database/types'
 import { env } from './env'
 
 export const signToken = ({ id: userId, email, display_name }: User) =>

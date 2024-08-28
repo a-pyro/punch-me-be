@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { authenticateJWT } from '../middlewares'
+import { authenticateJWT } from '../middlewares/authenticate-jwt'
 import { createUser } from './handlers/create-user'
 import { loginUser } from './handlers/login-user'
 import { updateUser } from './handlers/update-user'

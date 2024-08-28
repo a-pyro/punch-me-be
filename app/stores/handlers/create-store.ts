@@ -6,7 +6,7 @@ import {
   Store,
   StoreInsert,
 } from '@/app/database/types'
-import { logger } from '@/utils'
+import { logger } from '@/app/utils'
 
 export const createStore = async (
   req: ApiResquest<StoreInsert>,
