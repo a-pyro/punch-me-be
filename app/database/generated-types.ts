@@ -15,6 +15,7 @@ export type Database = {
           id: string
           message: string
           read: boolean | null
+          updated_at: string | null
           user_id: string
         }
         Insert: {
@@ -22,6 +23,7 @@ export type Database = {
           id?: string
           message: string
           read?: boolean | null
+          updated_at?: string | null
           user_id: string
         }
         Update: {
@@ -29,6 +31,7 @@ export type Database = {
           id?: string
           message?: string
           read?: boolean | null
+          updated_at?: string | null
           user_id?: string
         }
         Relationships: [
@@ -53,6 +56,7 @@ export type Database = {
           store_id: string
           terms_conditions: string | null
           total_punches: number
+          updated_at: string | null
         }
         Insert: {
           created_at?: string | null
@@ -65,6 +69,7 @@ export type Database = {
           store_id: string
           terms_conditions?: string | null
           total_punches?: number
+          updated_at?: string | null
         }
         Update: {
           created_at?: string | null
@@ -77,6 +82,7 @@ export type Database = {
           store_id?: string
           terms_conditions?: string | null
           total_punches?: number
+          updated_at?: string | null
         }
         Relationships: [
           {
@@ -94,18 +100,21 @@ export type Database = {
           id: string
           punchcard_id: string
           qr_code_data: string
+          updated_at: string | null
         }
         Insert: {
           created_at?: string | null
           id?: string
           punchcard_id: string
           qr_code_data: string
+          updated_at?: string | null
         }
         Update: {
           created_at?: string | null
           id?: string
           punchcard_id?: string
           qr_code_data?: string
+          updated_at?: string | null
         }
         Relationships: [
           {
@@ -125,6 +134,7 @@ export type Database = {
           punchcard_id: string | null
           rating: number | null
           store_id: string
+          updated_at: string | null
           user_id: string
         }
         Insert: {
@@ -134,6 +144,7 @@ export type Database = {
           punchcard_id?: string | null
           rating?: number | null
           store_id: string
+          updated_at?: string | null
           user_id: string
         }
         Update: {
@@ -143,6 +154,7 @@ export type Database = {
           punchcard_id?: string | null
           rating?: number | null
           store_id?: string
+          updated_at?: string | null
           user_id?: string
         }
         Relationships: [
@@ -179,6 +191,7 @@ export type Database = {
           logo_url: string | null
           name: string
           store_hours: Json | null
+          updated_at: string | null
           user_id: string
           website_url: string | null
         }
@@ -191,6 +204,7 @@ export type Database = {
           logo_url?: string | null
           name: string
           store_hours?: Json | null
+          updated_at?: string | null
           user_id: string
           website_url?: string | null
         }
@@ -203,6 +217,7 @@ export type Database = {
           logo_url?: string | null
           name?: string
           store_hours?: Json | null
+          updated_at?: string | null
           user_id?: string
           website_url?: string | null
         }
@@ -219,26 +234,35 @@ export type Database = {
       transactions: {
         Row: {
           amount: number
+          created_at: string | null
           description: string | null
           id: string
           punchcard_id: string
+          store_id: string
           transaction_date: string | null
+          updated_at: string | null
           user_id: string
         }
         Insert: {
           amount: number
+          created_at?: string | null
           description?: string | null
           id?: string
           punchcard_id: string
+          store_id: string
           transaction_date?: string | null
+          updated_at?: string | null
           user_id: string
         }
         Update: {
           amount?: number
+          created_at?: string | null
           description?: string | null
           id?: string
           punchcard_id?: string
+          store_id?: string
           transaction_date?: string | null
+          updated_at?: string | null
           user_id?: string
         }
         Relationships: [
@@ -247,6 +271,13 @@ export type Database = {
             columns: ["punchcard_id"]
             isOneToOne: false
             referencedRelation: "punchcards"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "transactions_store_id_fkey"
+            columns: ["store_id"]
+            isOneToOne: false
+            referencedRelation: "stores"
             referencedColumns: ["id"]
           },
           {
@@ -264,6 +295,7 @@ export type Database = {
           id: string
           punchcard_id: string
           punches: number
+          updated_at: string | null
           user_id: string
         }
         Insert: {
@@ -271,6 +303,7 @@ export type Database = {
           id?: string
           punchcard_id: string
           punches?: number
+          updated_at?: string | null
           user_id: string
         }
         Update: {
@@ -278,6 +311,7 @@ export type Database = {
           id?: string
           punchcard_id?: string
           punches?: number
+          updated_at?: string | null
           user_id?: string
         }
         Relationships: [
@@ -310,6 +344,7 @@ export type Database = {
           password: string
           phone_number: string | null
           role: Database["public"]["Enums"]["user_role"]
+          updated_at: string | null
         }
         Insert: {
           address?: string | null
@@ -323,6 +358,7 @@ export type Database = {
           password: string
           phone_number?: string | null
           role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string | null
         }
         Update: {
           address?: string | null
@@ -336,6 +372,7 @@ export type Database = {
           password?: string
           phone_number?: string | null
           role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string | null
         }
         Relationships: []
       }
