@@ -6,7 +6,7 @@ import {
   Punchcard,
   PunchcardInsert,
 } from '@/app/database/types'
-import { logger } from '@/app/utils'
+import { logger, STATUS_CODES } from '@/app/utils'
 
 export const createPunchcard = async (
   req: ApiResquest<PunchcardInsert>,
@@ -19,9 +19,11 @@ export const createPunchcard = async (
 
   if (error) {
     logger.error(`Error creating punchcards: ${JSON.stringify(error)}`)
-    return res.status(500).json({ message: 'Error creating punchcards' })
+    return res
+      .status(STATUS_CODES.SERVER_ERROR)
+      .json({ message: 'Error creating punchcards' })
   }
   const punchcard = data?.[0]
 
-  return res.status(201).json({ data: punchcard })
+  return res.status(STATUS_CODES.CREATED).json({ data: punchcard })
 }
