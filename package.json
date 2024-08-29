@@ -48,6 +48,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "morgan": "^1.10.0",
     "prettier": "^3.3.3",
+    "prettier-plugin-sql": "^0.18.1",
     "rimraf": "^6.0.1",
     "supabase": "^1.190.0",
     "ts-node": "^10.9.2",

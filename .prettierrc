@@ -1,7 +1,12 @@
 {
+  "plugins": ["prettier-plugin-sql"],
   "semi": false,
   "arrowParens": "always",
   "printWidth": 80,
   "tabWidth": 2,
-  "singleQuote": true
+  "singleQuote": true,
+  "sql": {
+    "keywordCase": "upper",
+    "tabulateAlias": true
+  }
 }
